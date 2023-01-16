@@ -12,7 +12,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/draft-ERC721
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
-contract MyToken is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721URIStorageUpgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable, EIP712Upgradeable, ERC721VotesUpgradeable {
+contract MyNFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721URIStorageUpgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable, EIP712Upgradeable, ERC721VotesUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
     CountersUpgradeable.Counter private _tokenIdCounter;
@@ -23,13 +23,13 @@ contract MyToken is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeabl
     }
 
     function initialize() initializer public {
-        __ERC721_init("MyToken", "MTK");
+        __ERC721_init("MyNFT", "MNFT");
         __ERC721Enumerable_init();
         __ERC721URIStorage_init();
         __Pausable_init();
         __Ownable_init();
         __ERC721Burnable_init();
-        __EIP712_init("MyToken", "1");
+        __EIP712_init("MyNFT", "1");
         __ERC721Votes_init();
     }
 
