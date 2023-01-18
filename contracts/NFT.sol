@@ -18,11 +18,11 @@ contract MyNFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable,
     CountersUpgradeable.Counter private _tokenIdCounter;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
-    constructor() {
+    constructor() public {
         _disableInitializers();
     }
 
-    function initialize() initializer public {
+    function initialize() public initializer {
         __ERC721_init("MyNFT", "MNFT");
         __ERC721Enumerable_init();
         __ERC721URIStorage_init();
