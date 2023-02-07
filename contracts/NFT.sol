@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NFT is ERC721, Pausable, Ownable {
-    constructor() ERC721("NFT", "MTK") {}
+    constructor(string memory name, string memory symbol) ERC721(name, symbol) {}
 
     function pause() public onlyOwner {
         _pause();
