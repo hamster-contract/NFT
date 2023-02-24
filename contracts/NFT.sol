@@ -1,37 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721BurnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/draft-ERC721VotesUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/draft-ERC721Votes.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract NFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, ERC721URIStorageUpgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable, EIP712Upgradeable, ERC721VotesUpgradeable {
-    using CountersUpgradeable for CountersUpgradeable.Counter;
+contract MyNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownable, ERC721Burnable, EIP712, ERC721Votes {
+    using Counters for Counters.Counter;
 
-    CountersUpgradeable.Counter private _tokenIdCounter;
+    Counters.Counter private _tokenIdCounter;
 
-    /// @custom:oz-upgrades-unsafe-allow constructor
-    constructor() public {
-        _disableInitializers();
-    }
-
-    function initialize() public initializer {
-        __ERC721_init("MyNFT", "MNFT");
-        __ERC721Enumerable_init();
-        __ERC721URIStorage_init();
-        __Pausable_init();
-        __Ownable_init();
-        __ERC721Burnable_init();
-        __EIP712_init("MyNFT", "1");
-        __ERC721Votes_init();
-    }
+    constructor() ERC721("MyNFT", "MTK") EIP712("MyNFT", "1") {}
 
     function pause() public onlyOwner {
         _pause();
@@ -51,7 +36,7 @@ contract NFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, E
     function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
     internal
     whenNotPaused
-    override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
+    override(ERC721, ERC721Enumerable)
     {
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
@@ -60,22 +45,19 @@ contract NFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, E
 
     function _afterTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
     internal
-    override(ERC721Upgradeable, ERC721VotesUpgradeable)
+    override(ERC721, ERC721Votes)
     {
         super._afterTokenTransfer(from, to, tokenId, batchSize);
     }
 
-    function _burn(uint256 tokenId)
-    internal
-    override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
-    {
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
         super._burn(tokenId);
     }
 
     function tokenURI(uint256 tokenId)
     public
     view
-    override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
+    override(ERC721, ERC721URIStorage)
     returns (string memory)
     {
         return super.tokenURI(tokenId);
@@ -84,7 +66,7 @@ contract NFT is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, E
     function supportsInterface(bytes4 interfaceId)
     public
     view
-    override(ERC721Upgradeable, ERC721EnumerableUpgradeable)
+    override(ERC721, ERC721Enumerable)
     returns (bool)
     {
         return super.supportsInterface(interfaceId);
