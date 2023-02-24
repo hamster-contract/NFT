@@ -4,7 +4,7 @@ contract("MyNFT", (accounts) => {
     let myNFT;
 
     before(async () => {
-        myNFT = await MyNFT.new();
+        myNFT = await MyNFT.new("MyNFT", "MTK", "1");
     });
 
     it("should have correct name and symbol", async () => {
