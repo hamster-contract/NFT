@@ -1,16 +1,16 @@
-const MyNFT = artifacts.require("MyNFT");
+const NFT = artifacts.require("NFT");
 
-contract("MyNFT", (accounts) => {
+contract("NFT", (accounts) => {
     let myNFT;
 
     before(async () => {
-        myNFT = await MyNFT.new("MyNFT", "MTK", "1");
+        myNFT = await NFT.new("NFT", "MTK", "1");
     });
 
     it("should have correct name and symbol", async () => {
         const name = await myNFT.name();
         const symbol = await myNFT.symbol();
-        assert.equal(name, "MyNFT");
+        assert.equal(name, "NFT");
         assert.equal(symbol, "MTK");
     });
 
