@@ -7,9 +7,10 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/draft-ERC721Votes.sol";
+import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Votes.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+
 
 contract NFT is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownable, ERC721Burnable, EIP712, ERC721Votes {
     using Counters for Counters.Counter;
@@ -66,7 +67,7 @@ contract NFT is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownable, E
     function supportsInterface(bytes4 interfaceId)
     public
     view
-    override(ERC721, ERC721Enumerable)
+    override(ERC721, ERC721Enumerable,ERC721URIStorage)
     returns (bool)
     {
         return super.supportsInterface(interfaceId);
