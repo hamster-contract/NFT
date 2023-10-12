@@ -67,7 +67,7 @@ contract NFT is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownable, E
     function supportsInterface(bytes4 interfaceId)
     public
     view
-    override(ERC721, ERC721Enumerable,ERC721URIStorage)
+    override(ERC721, ERC721Enumerable)
     returns (bool)
     {
         return super.supportsInterface(interfaceId);
